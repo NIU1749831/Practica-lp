@@ -1,7 +1,7 @@
-#include "puntInteresRestaurantSolucio.h"
+#include "PuntInteresRestaurantSolucio.h"
 
 
-unsigned int puntInteresRestaurantSolucio::getColor() {
+unsigned int PuntInteresRestaurantSolucio::getColor() {
 	if (tipusDeCuina == "pizza" && FacilitaAccesMR)
 		return 0x7FFFD4;
 	if (tipusDeCuina == "chinese")

@@ -1,6 +1,6 @@
-#include"puntInteresBotigaSolucio.h"
+#include"PuntInteresBotigaSolucio.h"
 
-unsigned int puntInteresBotiga::getColor()
+unsigned int PuntInteresBotigaSolucio::getColor()
 {
 	if (m_tag == "supermarket")
 		return 0xDFFF00;
