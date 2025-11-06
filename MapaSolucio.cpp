@@ -1,4 +1,5 @@
 #include"MapaSolucio.h"
+#include "CamiSolucio.h"
 
 void MapaSolucio::getPdis(vector<PuntDeInteresBase*>& pInteres)
 {
@@ -14,5 +15,11 @@ void MapaSolucio::getPdis(vector<PuntDeInteresBase*>& pInteres)
 	pInteres.push_back(&p1);
 	pInteres.push_back(&p2);
 
+}
+void MapaSolucio::getCamins(vector<CamiBase*>&camins)
+{
+	CamiSolucio c;
+	c.setCami(c.getCamiCoords());
+	camins.push_back(&c);
 }
 

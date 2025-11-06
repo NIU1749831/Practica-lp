@@ -1,5 +1,5 @@
-#include "..\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022\PuntDeInteresBase.h"
-#include "..\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022/pch.h"
+#include "..\proyecto\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022\PuntDeInteresBase.h"
+#include "..\proyecto\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022\pch.h"
 
 class PuntInteresBotigaSolucio	: public PuntDeInteresBase
 {
