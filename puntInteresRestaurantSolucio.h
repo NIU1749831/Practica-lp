@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "..\proyecto\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022\PuntDeInteresBase.h"
-
+#include "..\VSCE2022 - ALUMNES P1\LP-OSM-DLL-2022\PuntDeInteresBase.h"
+#include "../VSCE2022 - ALUMNES P1/LP-OSM-DLL-2022/pch.h"
 /*
 Pare:
 class PuntDeInteresBase {
@@ -21,13 +21,13 @@ class PuntDeInteresBase {
 
 };*/
 
-class puntInteresRestaurantSolucio : public PuntDeInteresBase
+class PuntInteresRestaurantSolucio : public PuntDeInteresBase
 {
 public:
-	puntInteresRestaurantSolucio(){}
-	puntInteresRestaurantSolucio(Coordinate coord, string name, string tipusDeCuina, bool FacilitaAccesMR)
+	PuntInteresRestaurantSolucio() {};
+	PuntInteresRestaurantSolucio(const Coordinate& coord, const string& name, const string& tipusDeCuina, const bool& FacilitaAccesMR)
 		: PuntDeInteresBase(coord, name), tipusDeCuina(tipusDeCuina), FacilitaAccesMR(FacilitaAccesMR){}
-	~puntInteresRestaurantSolucio(){}
+	~PuntInteresRestaurantSolucio(){}
 
 	unsigned int getColor() override;
 
