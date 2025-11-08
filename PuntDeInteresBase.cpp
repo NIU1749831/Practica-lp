@@ -28,5 +28,11 @@ PuntDeInteresBase* PuntDeInteresBase::clone()
 {
 	return new PuntDeInteresBase(*this);
 }
+PuntDeInteresBase& PuntDeInteresBase::operator=(const PuntDeInteresBase& p)
+{
+	m_name = p.m_name;
+	m_coord = p.m_coord;
+	return *this;
+}
 
 

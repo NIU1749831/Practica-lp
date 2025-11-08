@@ -5,13 +5,13 @@
 
 unsigned int PuntInteresBotigaSolucio::getColor()
 {
-	if (m_tag == "supermarket")
+	if (m_tipusBotiga == "supermarket")
 		return 0xDFFF00;
-	if (m_tag == "tobacco")
+	if (m_tipusBotiga == "tobacco")
 		return 0xFF7F50;
-	if (m_tag == "bakery" && m_wealChair && m_openingHours.find("6:00 - 22 : 00") != -1)
+	if (m_tipusBotiga == "bakery" && m_wealChair && m_openingHours.find("6:00 - 22 : 00") != -1)
 		return 0x4CBB17;
-	if (m_tag == "bakery")
+	if (m_tipusBotiga == "bakery")
 		return 0xFA8072;
 	return 0xFFEA00;
 }
@@ -36,10 +36,4 @@ unsigned int PuntInteresRestaurantSolucio::getColor() {
 PuntInteresRestaurantSolucio* PuntInteresRestaurantSolucio::clone()
 {
 	return new PuntInteresRestaurantSolucio(*this);
-}
-
-//---PuntInteresGenericSolucio---//
-PuntInteresGenericSolucio* PuntInteresGenericSolucio::clone()
-{
-	return new PuntInteresGenericSolucio(*this);
 }

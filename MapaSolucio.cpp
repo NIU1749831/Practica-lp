@@ -28,55 +28,53 @@ void MapaSolucio::getCamins(vector<CamiBase*>& camins)
 
 void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 {
-	bool trobat = false;
+	bool restaurant = false, botiga = false;
 	for (auto& element : XmlElements)
 	{
-		
-
 		//punt interes
 		if (element.id_element == "node" && !element.fills.empty())
 		{
-			PuntInteresGenericSolucio p;
+			string nom, lat, lon, timestamp, tipe, opHours;
+			bool chair;
+
 			//guarda valores de lat, long i timestamp del pdi
 			for (auto& atribut : element.atributs)
 			{
-				if (atribut.first == "lat")
-					p.setLat(stod(atribut.second));
-				if (atribut.first == "lon")
-					p.setLon(stod(atribut.second));
-				if (atribut.first == "timestamp")
-					p.setTimestamp(atribut.second);
-			} 
+				if (atribut.first == "lat") lat = atribut.second;
+				else if (atribut.first == "lon") lon = atribut.second;
+				else if (atribut.first == "timestamp") timestamp = atribut.second;
+			}
+
 			//mirar los hijo
 			for (auto& fill : element.fills)
 			{
-				for(int i=0; i<fill.second.size(); i++)
-				{ 
-					//guardas el valor del nombre ne m_nom
-					if (fill.second[i].second == "name")
-						p.setNom(fill.second[i + 1].second);
-					else if (fill.second[i].second == "wheelchair") //guardar valor accesibilidad
-					{
-						p.setRuedas(fill.second[i + 1].second == "yes" ? true : false);
-					}
-					else if (fill.second[i].first == "k") //guardar el resto de tags
-					{
-						vector<PAIR_ATTR_VALUE> convertir_kv;
-						convertir_kv.push_back(fill.second[i]); //valor de k
-						convertir_kv.push_back(fill.second[i+1]); //valor de v
+				PAIR_ATTR_VALUE kvVector = Util::kvDeTag(fill.second);
 
-						p.setTag(Util::kvDeTag(convertir_kv));
-					}
+				//guardas el valor de las variables
+				if (kvVector.first == "name") nom = kvVector.second;
+				else if (kvVector.first == "wheelchair") chair = kvVector.second == "yes" ? true : false;
+				else if (kvVector.first == "cuisine" || kvVector.first == "shop")tipe = kvVector.second;
+				else if (kvVector.second == "restaurant") restaurant = true;
+				else if (kvVector.first == "shop") botiga = true;
+				else if (kvVector.first == "opening_hours") opHours = kvVector.second;
+			}
 
-
-					
+			if (nom != "undefinit" && (restaurant || botiga))
+			{
+				Coordinate c;
+				c.lat = stod(lat);
+				c.lon = stod(lon);
+				if (restaurant)
+				{
+					PuntInteresRestaurantSolucio restaurant(c, nom, tipe, chair);
+					m_pInteres.push_back(restaurant.clone());
+				}
+				else if (botiga)
+				{
+					PuntInteresBotigaSolucio botiga(nom, tipe, opHours, c, chair);
+					m_pInteres.push_back(botiga.clone());
 				}
 			}
-			if (p.getName() == "undefinit")
-				m_pHighway.push_back(p.clone());
-			else
-				m_pInteres.push_back(p.clone());
-
 		}
 	}
 }

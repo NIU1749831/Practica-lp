@@ -10,7 +10,7 @@ class PuntDeInteresBase
 	private:
 		Coordinate m_coord;
 		std::string m_name;
-
+		string m_timestamp;
 	public:		
 		PuntDeInteresBase();
 		PuntDeInteresBase(Coordinate coord, std::string name);
@@ -18,6 +18,9 @@ class PuntDeInteresBase
 		void setNom(const string& s) {m_name = s;}
 		void setLat(const double& l) { m_coord.lat = l; }
 		void setLon(const double& l) { m_coord.lon = l; }
+		void setTimestamp(const string& t) { m_timestamp = t; }
+
+		PuntDeInteresBase& operator=(const PuntDeInteresBase &p);
 
 		virtual string getName();
 		Coordinate getCoord();

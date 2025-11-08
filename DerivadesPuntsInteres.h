@@ -7,19 +7,19 @@
 class PuntInteresBotigaSolucio : public PuntDeInteresBase
 {
 public:
-	PuntInteresBotigaSolucio() : PuntDeInteresBase(), m_tag(""), m_wealChair(false), m_openingHours("") {};
+	PuntInteresBotigaSolucio() : PuntDeInteresBase(), m_tipusBotiga(""), m_wealChair(false), m_openingHours("") {};
 	PuntInteresBotigaSolucio(const string& n, const string& t, const string& o, const Coordinate& c, const bool& w)
-		: PuntDeInteresBase(c, n), m_tag(t), m_wealChair(w), m_openingHours(o) {
+		: PuntDeInteresBase(c, n), m_tipusBotiga(t), m_wealChair(w), m_openingHours(o) {
 	};
 	PuntInteresBotigaSolucio(const PuntInteresBotigaSolucio& other) : PuntDeInteresBase(other),
-		m_tag(other.m_tag), m_wealChair(other.m_wealChair), m_openingHours(other.m_openingHours) {
+		m_tipusBotiga(other.m_tipusBotiga), m_wealChair(other.m_wealChair), m_openingHours(other.m_openingHours) {
 	}
 	//string getName() override;
 	unsigned getColor() override;
 	PuntInteresBotigaSolucio* clone() override;
 
 private:
-	string m_tag;
+	string m_tipusBotiga;
 	bool m_wealChair;
 	string m_openingHours;
 };
@@ -43,18 +43,4 @@ public:
 private:
 	string tipusDeCuina;
 	bool FacilitaAccesMR;
-};
-
-class PuntInteresGenericSolucio : public PuntDeInteresBase
-{
-private:
-	vector<pair<string, string>> m_tags;
-	bool m_sillaRuedas;
-	string m_timestamp;
-public:
-	void setTimestamp(const string& t) { m_timestamp = t; }
-	void setRuedas(const bool& b) { m_sillaRuedas = b; }
-	void setTag(const pair<string, string>& p) { m_tags.push_back(p); }
-	//possible metodo: encontrar devolver valor a traves de la llave
-	PuntInteresGenericSolucio* clone() override;
 };
