@@ -54,10 +54,15 @@ void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 				if (kvVector.first == "name") nom = kvVector.second;
 				else if (kvVector.first == "wheelchair") chair = kvVector.second == "yes" ? true : false;
 				else if (kvVector.first == "cuisine" || kvVector.first == "shop")tipe = kvVector.second;
-				else if (kvVector.second == "restaurant") restaurant = true;
-				else if (kvVector.first == "shop") botiga = true;
 				else if (kvVector.first == "opening_hours") opHours = kvVector.second;
+				if (kvVector.second == "restaurant") restaurant = true;
+				if (kvVector.first == "shop") botiga = true;
+				
+
+				/*if (nom == "Gilgo")
+					__debugbreak();*/
 			}
+			
 
 			if (nom != "undefinit" && (restaurant || botiga))
 			{
@@ -76,6 +81,10 @@ void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 				}
 			}
 		}
+		restaurant = false;
+		botiga = false;
+
+		//camins
 	}
 }
 
