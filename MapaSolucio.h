@@ -1,12 +1,15 @@
 #pragma once
 #include"MapaBase.h"
-#include"PuntDeInteresBotigaSolucio.h"
-#include"PuntDeInteresRestaurantSolucio.h"
+#include"CamiSolucio.h"
+#include"DerivadesPuntsInteres.h"
+
 
 class MapaSolucio : public MapaBase
 {
 private:
-
+	vector<CamiSolucio*> m_camins;
+	vector<PuntDeInteresBase*> m_pInteres;
+	vector<PuntDeInteresBase*> m_pHighway;
 public:
 	MapaSolucio(){};
 

@@ -1,4 +1,4 @@
-
+#include"pch.h"
 #include "CamiSolucio.h"
 
 vector<Coordinate> CamiSolucio::getCamiCoords()
