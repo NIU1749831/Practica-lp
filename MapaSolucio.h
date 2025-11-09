@@ -7,11 +7,12 @@
 class MapaSolucio : public MapaBase
 {
 private:
-	vector<CamiSolucio*> m_camins;
 	vector<PuntDeInteresBase*> m_pInteres;
-	vector<PuntDeInteresBase*> m_pHighway;
+	vector<CamiSolucio*> m_camins;
+	vector<Node> m_nodesVisitats;
 public:
 	MapaSolucio(){};
+	~MapaSolucio();
 
 	void getPdis(vector<PuntDeInteresBase*>&) override;
 	void getCamins(vector<CamiBase*>&) override;
