@@ -8,9 +8,6 @@ CamiSolucio* CamiSolucio::clone()
 
 vector<Coordinate> CamiSolucio::getCamiCoords()
 {
-	vector<Coordinate> c;
-	for (auto& a : m_cami)
-		c.push_back(a);
-	return c;
+	return m_cami;
 }
 

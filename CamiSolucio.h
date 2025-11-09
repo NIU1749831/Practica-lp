@@ -16,7 +16,7 @@ public:
 
 	void setTipus(const string& nom) { m_tipus = nom; }
 	void setCami(vector<Coordinate>cami) { m_cami = cami; }
-	void addCami(const Coordinate& c) { m_cami.push_back(c); }
+	void addCami(const Coordinate& c) { m_cami.insert(m_cami.cbegin(), c); }
 	void addRef(const string& r) { m_referencies.push_back(r); }
 
 	string getTipus() const { return m_tipus; }

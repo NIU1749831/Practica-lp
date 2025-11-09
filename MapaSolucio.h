@@ -17,4 +17,7 @@ public:
 	void getPdis(vector<PuntDeInteresBase*>&) override;
 	void getCamins(vector<CamiBase*>&) override;
 	void parsejaXmlElements(vector<XmlElement>& xmlElements) override;
+
+	void ordenarPorId(vector<Node>& v);
+	Coordinate cercaBinaria(const string &refe);
 };

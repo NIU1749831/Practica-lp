@@ -2,6 +2,8 @@
 #include"MapaSolucio.h"
 #include"Util.h"
 #include<iostream>
+#include <string>
+#include <algorithm> 
 
 /*
 Estructura dato XmlElement:
@@ -27,24 +29,45 @@ void MapaSolucio::getPdis(vector<PuntDeInteresBase*>& pInteres)
 		pInteres.push_back(a);
 }
 
+//Funcio que ordena nodes pel seu id per fer servir una cerca binaria
+void MapaSolucio::ordenarPorId(vector<Node>& v) {
+	sort(v.begin(), v.end(),
+		[](const Node& a, const Node& b) {
+			return stoll(a.id) < stoll(b.id);
+		});
+}
+
+Coordinate MapaSolucio::cercaBinaria(const string& refe)
+{
+	double refeInt = stod(refe);
+	int izquierda = 0;
+	int derecha = m_nodesVisitats.size() - 1;
+
+	while (izquierda <= derecha) {
+		int mid = izquierda + (derecha - izquierda) / 2;  // evita overflow
+
+		if (stod(m_nodesVisitats[mid].id) == refeInt)
+			return m_nodesVisitats[mid].c;               // encontrado
+		else if (stod(m_nodesVisitats[mid].id) < refeInt)
+			izquierda = mid + 1;           // buscar en la mitad derecha
+		else
+			derecha = mid - 1;          // buscar en la mitad izquierda
+	}
+	return { 0.0, 0.0 };
+}
+
 void MapaSolucio::getCamins(vector<CamiBase*>& camins)
 {
-	for (auto& nVisitat : m_nodesVisitats)
+	ordenarPorId(m_nodesVisitats);
+	for (auto& cami : m_camins)
 	{
-		for (auto& cami : m_camins)
+		for (auto& refe : cami->getRefes())
 		{
-			for (auto& ref : cami->getRefes())
-			{
-				if (nVisitat.id == ref)
-				{
-					cami->addCami(nVisitat.c);
-				}
-			}
-			
+			Coordinate c = cercaBinaria(refe);
+			cami->addCami(c);
 		}
+		camins.push_back(cami);
 	}
-	for (int i=0; i<m_camins.size(); i++)
-		camins.push_back(m_camins[i]);
 }
 
 void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
@@ -67,6 +90,7 @@ void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 				else if (atribut.first == "timestamp") timestamp = atribut.second;
 				else if (atribut.first == "id") n.id = atribut.second;
 			}
+			
 
 			n.c.lat = stod(lat);
 			n.c.lon = stod(lon);
@@ -111,8 +135,9 @@ void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 		}
 		else if (element.id_element == "way")
 		{
+
 			CamiSolucio c;
-			for (int i = (element.fills.size()-2); i > 0; i--)
+			for (int i = (element.fills.size()-2); i > 0; i-=2)
 			{	
 				CHILD_NODE fill = element.fills[i];
 				PAIR_ATTR_VALUE kvVector = Util::kvDeTag(fill.second);
@@ -122,7 +147,7 @@ void MapaSolucio::parsejaXmlElements(vector<XmlElement>& XmlElements)
 					esHighway = true;
 					c.setTipus(kvVector.second); //guardar tipus
 				}
-				else if (element.fills[i].first != "tag" && !esHighway) break; //break en cas de començar a mirar refes i no ser hihgway
+				else if (fill.first != "tag" && !esHighway) break; //break en cas de començar a mirar refes i no ser hihgway
 
 				//omplir refes en cas de ser una referencia
 				if (fill.first == "nd")
